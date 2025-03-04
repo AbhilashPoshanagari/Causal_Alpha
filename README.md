@@ -1,7 +1,4 @@
 # Causal_Alpha
-
-# MLOps Pipeline for Stock Market Data Processing and Forecasting
-
 ## Overview
 This document outlines the MLOps architecture for real-time stock market data processing, storage, transformation, model training, and forecasting. The pipeline leverages Kafka, MongoDB, FastAPI, WebSockets, and MLFlow for seamless integration and deployment.
 
