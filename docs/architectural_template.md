@@ -107,6 +107,21 @@ for message in consumer:
 3. Log models using MLflow.
 4. Schedule training jobs using Airflow.
 
+### **Setup:**
+1. **Airflow**:
+    - pip install "apache-airflow[celery]==2.10.5" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.8.txt"
+    - [Airflow Official documentation](https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html)
+    - export AIRFLOW_HOME=~/airflow  # Set Airflow home directory
+    - airflow db init  # Initialize metadata database
+    - airflow standalone
+    - Access the UI at: http://localhost:8080
+
+3. **Mlflow**:
+    - pip install mlflow
+    - [Mlflow Official documentation](https://mlflow.org/docs/latest/getting-started/intro-quickstart/index.html)
+    - mlflow server --host 127.0.0.1 --port 4300
+    - Access the UI at: http://localhost:4300
+
 ### **Implementation (Airflow DAG Example):**
 ```python
 from airflow import DAG
@@ -140,6 +155,12 @@ train_task = PythonOperator(task_id='train', python_callable=train_and_log_model
 2. Send data to the trained model via FastAPI.
 3. WebSocket updates the Angular frontend with predictions.
 
+### **Setup:**
+1. **Fastapi**:
+    - pip install fastapi uvicorn
+    - uvicorn main:app --host 0.0.0.0 --port 3000
+    - [Official documentation](https://fastapi.tiangolo.com/tutorial/)
+    - Access the server at: http://localhost:3000
 ### **Implementation (FastAPI for Model Serving):**
 ```python
 from fastapi import FastAPI
