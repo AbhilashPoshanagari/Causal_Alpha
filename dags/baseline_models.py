@@ -31,8 +31,8 @@ import os
 logger = logging.getLogger(__name__)
 # Set MLflow tracking URI
 mlflow.set_tracking_uri("http://localhost:4300")
-dag_folder = os.path.dirname(os.path.abspath(__name__))
-
+# dag_folder = os.path.dirname(os.path.abspath(__name__))
+dag_folder = '/home/abhilash/ML_spark/dag_spark/Causal_Alpha/dags'
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -59,8 +59,8 @@ def extract_data():
     plt.plot(data)
     plt.title("NIFTY50 Stock Prices")
     plt.show()
-    data.shape
-    csv_path = os.path.join(dag_folder,"..","dataset", "base_models","nifty50.csv")
+    logger.info(dag_folder)
+    csv_path = os.path.join(dag_folder,"../","dataset", "base_models","nifty50.csv")
     file_path = os.path.abspath(csv_path)
     # Save data to csv
     data.to_csv(file_path, header=["Close"], index=True)
@@ -132,7 +132,7 @@ def train_arima(**kwargs):
         data['Close'] = data['Close'].squeeze()
         mlflow.set_experiment("ARIMA_baseline")
         with mlflow.start_run():
-            mlflow.log_params({"order":model.order, "Coefficients": best_model.params, "AIC":best_model.aic, "BIC":best_model.bic })
+            mlflow.log_params({"order":best_order, "Coefficients": best_model.params, "AIC":best_model.aic, "BIC":best_model.bic })
             # Log the model
             predictions = best_model.predict(start=0, end=len(data)-1)
             signature = infer_signature(data['Close'].values.reshape(-1, 1), predictions.values.reshape(-1, 1))
