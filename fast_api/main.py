@@ -6,16 +6,17 @@ from kafka import KafkaConsumer
 from global_state import set_streaming, get_streaming, mlflow_url, path
 from fastapi.middleware.cors import CORSMiddleware
 from streaming.ibm_consumer import ibm_consumer, ibm_consumer_msg
-from lstm_predict import lstm_prediction
+from lstm_predict import lstm_prediction, get_all_registered_versions
 from extract_features import get_features
 import mlflow
 import pandas as pd
 from fastapi.responses import JSONResponse
+from mlflow.tracking import MlflowClient
 
 app = FastAPI()
 
 mlflow.set_tracking_uri(mlflow_url)
-
+client = MlflowClient()
 origins:list = [
     "http://127.0.0.1:4200"
     "http://localhost:4200",
@@ -49,6 +50,13 @@ class User(BaseModel):
     username: str
     password: str
 
+class ModelParams(BaseModel):
+    tag: str
+    version: str
+    aliases: str
+    source: str
+    run_id: str
+
 @app.get("/")
 def read_root():
     return {"message": "Hello, FastAPI!"}
@@ -61,10 +69,35 @@ def read_item(item_id: int, q: str = None):
 def get_all_users(user: User):
     return {"user_count": 20, "request": user}
 
+@app.get("/mlflow/getallversions/{model}")
+def get_versions(model: str):
+    versions_data = get_all_registered_versions(model_name=model, client=client)
+    return JSONResponse(content={
+        "status": 200,
+        "data": versions_data
+    })
+
+
 @app.get("/mlflow/predict")
 def predict_stock_prices():
     features, date_values, actual_prices = get_features()
     predicted_prices = lstm_prediction(feature=features, mlflow=mlflow)
+      # Convert date values to timestamps (milliseconds)
+    formatted_data = []
+    for date, actual, predicted in zip(date_values, actual_prices, predicted_prices):
+        formatted_data.append({"Date":date, "Actual_price":actual, "Predicted_price":predicted[0]})
+
+    return JSONResponse(content={
+        "status": 200,
+        "data": formatted_data
+    })
+
+@app.get("/mlflow/predict/{run_id}")
+def predict_stock_prices(run_id: str):
+    features, date_values, actual_prices = get_features()
+    # model_uri = "models:/" + model_name + '@' + tag
+    # print(f"Model uri : {model_uri}")
+    predicted_prices = lstm_prediction(feature=features, mlflow=mlflow, run_id=run_id)
       # Convert date values to timestamps (milliseconds)
     formatted_data = []
     for date, actual, predicted in zip(date_values, actual_prices, predicted_prices):

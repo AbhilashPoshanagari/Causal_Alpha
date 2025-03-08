@@ -2,4 +2,6 @@ dags/mlartifacts
 dags/mlruns
 dags/__pycache__
 dags/base_models/__pycache__
-dags/__pycache__/
+dags/__pycache__
+fast_api/__pycache__
+fast_api/streaming/__pycache__
