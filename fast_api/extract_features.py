@@ -6,6 +6,9 @@ from global_state import path
 
 def get_features():
     data = pd.read_csv(path + 'dataset/base_models/nifty50_test.csv',index_col=0)
+    close_prices = data['Close'].values  # Assuming 'Close' is the column name
+    date_values = data.index.tolist()  # Extracting dates from index
+
     def create_sequences(data, seq_length):
         X, y = [], []
         for i in range(len(data) - seq_length):
@@ -22,6 +25,6 @@ def get_features():
     # Apply the same scaling transformation
     X_test_100_scaled = scaler.transform(X_train_2D)
     X_test_100_scaled = X_test_100_scaled.reshape(-1, X_test_100_scaled.shape[1],1)
-    return X_test_100_scaled
+    return X_test_100_scaled, date_values[-len(y):], close_prices[-len(y):]
 
 

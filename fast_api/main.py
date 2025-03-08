@@ -3,20 +3,27 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from streaming.kafka_consumer import consumer_msg, get_consumer
 from kafka import KafkaConsumer
-from global_state import set_streaming, get_streaming, mlflow_url, origins
+from global_state import set_streaming, get_streaming, mlflow_url, path
 from fastapi.middleware.cors import CORSMiddleware
 from streaming.ibm_consumer import ibm_consumer, ibm_consumer_msg
 from lstm_predict import lstm_prediction
 from extract_features import get_features
 import mlflow
+import pandas as pd
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
 mlflow.set_tracking_uri(mlflow_url)
 
+origins:list = [
+    "http://127.0.0.1:4200"
+    "http://localhost:4200",
+    "http://localhost:8080",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,9 +63,25 @@ def get_all_users(user: User):
 
 @app.get("/mlflow/predict")
 def predict_stock_prices():
-    features = get_features()
-    prediction = lstm_prediction(feature=features, mlflow=mlflow)
-    return {"prediction": prediction}
+    features, date_values, actual_prices = get_features()
+    predicted_prices = lstm_prediction(feature=features, mlflow=mlflow)
+      # Convert date values to timestamps (milliseconds)
+    formatted_data = []
+    for date, actual, predicted in zip(date_values, actual_prices, predicted_prices):
+        formatted_data.append({"Date":date, "Actual_price":actual, "Predicted_price":predicted[0]})
+
+    return JSONResponse(content={
+        "status": 200,
+        "data": formatted_data
+    })
+
+@app.get("/datasets/trained_data")
+def get_trained_data():
+    data = pd.read_csv(path + '/dataset/base_models/nifty50.csv')
+    trained_data = data[:-100].to_dict(orient="records")
+    return JSONResponse(content={"data":trained_data, "status":200})
+
+
 
 
 # @app.get('/kafka/start')

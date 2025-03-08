@@ -1,9 +1,6 @@
 global_state = {"is_running": False}
 LOCAL_KAFKA_BROKER = 'localhost:9092'
-origins = [
-    "http://localhost:4200",
-    "http://localhost:8080",
-]
+
 BOOTSTRAP_SERVERS = [
         "broker-2-w1zrynsnrvtccy83.kafka.svc04.us-south.eventstreams.cloud.ibm.com:9093",
         "broker-5-w1zrynsnrvtccy83.kafka.svc04.us-south.eventstreams.cloud.ibm.com:9093",

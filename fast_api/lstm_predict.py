@@ -20,5 +20,5 @@ def lstm_prediction(feature, mlflow):
 
     # Perform inverse transformation
     future_predictions_inv = scaler.inverse_transform(prediction)
-    return {"prediction": future_predictions_inv.tolist()}
+    return future_predictions_inv.tolist()
 
