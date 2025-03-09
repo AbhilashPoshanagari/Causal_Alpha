@@ -48,10 +48,10 @@ This document outlines the MLOps architecture for real-time stock market data pr
   - WebSockets stream the data to the Angular app for real-time updates.
 
 ### 3. Model Training and Management
-- **Technology Stack:** Airflow, MLFlow, MongoDB, Python (ARIMA, LSTM, Transformers)
+- **Technology Stack:** Airflow, MLFlow, MongoDB, Python (ARIMA, LSTM, KG, TGNN)
 - **Workflow:**
   - Data is fetched from MongoDB.
-  - Training is performed using ARIMA, LSTM, and Transformer models.
+  - Training is performed using ARIMA, LSTM, KG and TGNN models.
   - Trained models are logged and stored in MLFlow.
   - Schedule training jobs using Airflow
 
