@@ -3,7 +3,8 @@
 This document outlines the MLOps architecture for real-time stock market data processing, storage, transformation, model training, and forecasting. The pipeline leverages Kafka, MongoDB, FastAPI, WebSockets, and MLFlow for seamless integration and deployment.
 
 ## Architecture Diagram
-![Causal Alpha](https://github.com/user-attachments/assets/1e81257c-86c0-4d81-a3ac-12f6455ae2ed)
+![Causal Alpha_latest](https://github.com/user-attachments/assets/6c4a0e1b-e7d9-4a86-8a27-d9fa6aeb3467)
+
 
   
 1. **REST API Data Ingestion**
