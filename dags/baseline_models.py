@@ -139,7 +139,7 @@ def train_arima(**kwargs):
             mlflow.set_tag("ARIMA baseline", "Rupesh")
             model_info = mlflow.statsmodels.log_model(
                 best_model,
-                artifact_path="arima_model",
+                artifact_path="arima_base_model",
                 signature=signature,
                 input_example=data['Close'].values.reshape(-1, 1),
                 registered_model_name="arima_base_model"
@@ -216,7 +216,7 @@ def train_lstm(**kwargs):
             mlflow.set_tag("LSTM baseline", "Rupesh")
             model_info = mlflow.tensorflow.log_model(
                 model,
-                artifact_path="lstm_model",
+                artifact_path="lstm_base_model",
                 signature=signature,
                 input_example=X_train_scaled,
                 registered_model_name="lstm_base_model"
