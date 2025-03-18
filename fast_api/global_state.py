@@ -11,8 +11,8 @@ BOOTSTRAP_SERVERS = [
     ]
 API_KEY = "H5seTYdlbnaTLZIY8RxvcjX--keLYYIhKWjMabGDz32x"
 TOPIC = 'trading_topic'
-path = '/home/abhilash/ML_spark/dag_spark/Causal_Alpha/'
-mlflow_url:str = 'http://localhost:4300'
+path = '/root/Causal_Alpha/'
+mlflow_url:str = 'http://44.213.127.118:4300'
 
 def set_streaming(value):
     global_state["is_running"] = value

@@ -110,7 +110,7 @@ def predict_stock_prices(run_id: str):
 
 @app.get("/datasets/trained_data")
 def get_trained_data():
-    data = pd.read_csv(path + '/dataset/base_models/nifty50.csv')
+    data = pd.read_csv(path + 'dataset/base_models/nifty50.csv')
     trained_data = data[:-100].to_dict(orient="records")
     return JSONResponse(content={"data":trained_data, "status":200})
 
