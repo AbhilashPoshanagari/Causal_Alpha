@@ -3,10 +3,10 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from streaming.kafka_consumer import consumer_msg, get_consumer
 from kafka import KafkaConsumer
-from global_state import set_streaming, get_streaming, mlflow_url, path
+from global_state import set_streaming, get_streaming, get_mlflow_server, set_mlflow_server, path
 from fastapi.middleware.cors import CORSMiddleware
 from streaming.ibm_consumer import ibm_consumer, ibm_consumer_msg
-from lstm_predict import lstm_prediction, get_all_registered_versions
+from lstm_predict import lstm_prediction, get_all_registered_versions, getparameters_metrics
 from extract_features import get_features
 import mlflow
 import pandas as pd
@@ -15,7 +15,6 @@ from mlflow.tracking import MlflowClient
 
 app = FastAPI()
 
-mlflow.set_tracking_uri(mlflow_url)
 client = MlflowClient()
 origins:list = [
     "http://127.0.0.1:4200"
@@ -50,6 +49,9 @@ class User(BaseModel):
     username: str
     password: str
 
+class IP(BaseModel):
+    mlflow_ip: str
+
 class ModelParams(BaseModel):
     tag: str
     version: str
@@ -69,14 +71,22 @@ def read_item(item_id: int, q: str = None):
 def get_all_users(user: User):
     return {"user_count": 20, "request": user}
 
+@app.post("/mlflow")
+def get_all_users(ip: IP):
+    ip = set_mlflow_server(ip.mlflow_ip)
+    mlflow.set_tracking_uri(ip)
+    return JSONResponse(content={
+        "status": 200,
+        "data": f"ML flow connected to {ip}"
+    })
+
 @app.get("/mlflow/getallversions/{model}")
 def get_versions(model: str):
-    versions_data = get_all_registered_versions(model_name=model, client=client)
+    versions_data = get_all_registered_versions(model_name=model)
     return JSONResponse(content={
         "status": 200,
         "data": versions_data
     })
-
 
 @app.get("/mlflow/predict")
 def predict_stock_prices():
@@ -92,20 +102,21 @@ def predict_stock_prices():
         "data": formatted_data
     })
 
-@app.get("/mlflow/predict/{run_id}")
-def predict_stock_prices(run_id: str):
+@app.get("/mlflow/predict/{model}/{run_id}")
+def predict_stock_prices(model:str, run_id: str):
     features, date_values, actual_prices = get_features()
     # model_uri = "models:/" + model_name + '@' + tag
     # print(f"Model uri : {model_uri}")
-    predicted_prices = lstm_prediction(feature=features, mlflow=mlflow, run_id=run_id)
+    predicted_prices = lstm_prediction(feature=features, mlflow=mlflow, model=model, run_id=run_id)
       # Convert date values to timestamps (milliseconds)
     formatted_data = []
+    params, metrics = getparameters_metrics(run_id)
     for date, actual, predicted in zip(date_values, actual_prices, predicted_prices):
         formatted_data.append({"Date":date, "Actual_price":actual, "Predicted_price":predicted[0]})
 
     return JSONResponse(content={
         "status": 200,
-        "data": formatted_data
+        "data": {"values": formatted_data, "params": params, "metrics": metrics}
     })
 
 @app.get("/datasets/trained_data")

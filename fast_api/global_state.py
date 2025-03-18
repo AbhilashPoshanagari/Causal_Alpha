@@ -1,4 +1,5 @@
 global_state = {"is_running": False}
+global_mlflow = {"mlflow_url": 'http://localhost:4300'}
 LOCAL_KAFKA_BROKER = 'localhost:9092'
 
 BOOTSTRAP_SERVERS = [
@@ -12,10 +13,17 @@ BOOTSTRAP_SERVERS = [
 API_KEY = "H5seTYdlbnaTLZIY8RxvcjX--keLYYIhKWjMabGDz32x"
 TOPIC = 'trading_topic'
 path = '/home/abhilash/ML_spark/dag_spark/Causal_Alpha/'
-mlflow_url:str = 'http://localhost:4300'
+# mlflow_url:str = 'http://localhost:4300'
 
 def set_streaming(value):
     global_state["is_running"] = value
 
 def get_streaming():
     return global_state["is_running"]
+
+def set_mlflow_server(server_ip: str):
+    global_mlflow["mlflow_url"] = server_ip
+    return global_mlflow["mlflow_url"]
+
+def get_mlflow_server():
+    return global_mlflow["mlflow_url"]
