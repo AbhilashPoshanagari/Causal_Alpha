@@ -5,3 +5,5 @@ dags/base_models/__pycache__
 dags/__pycache__
 fast_api/__pycache__
 fast_api/streaming/__pycache__
+causal_alpha/*
+fast_api/mlruns/*

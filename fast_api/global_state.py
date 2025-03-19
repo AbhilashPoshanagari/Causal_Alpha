@@ -12,7 +12,7 @@ BOOTSTRAP_SERVERS = [
     ]
 API_KEY = "H5seTYdlbnaTLZIY8RxvcjX--keLYYIhKWjMabGDz32x"
 TOPIC = 'trading_topic'
-path = '/root/Causal_Alpha/'
+path = '/workspaces/Causal_Alpha/'
 #mlflow_url:str = 'http://44.213.127.118:4300'
 
 
