@@ -30,7 +30,8 @@ import os
 # Configure logger
 logger = logging.getLogger(__name__)
 # Set MLflow tracking URI
-mlflow.set_tracking_uri("http://localhost:4300")
+# mlflow.set_tracking_uri("http://localhost:4300")
+mlflow.set_tracking_uri("http://44.199.208.18:4300/")
 # dag_folder = os.path.dirname(os.path.abspath(__name__))
 dag_folder = '/home/abhilash/ML_spark/dag_spark/Causal_Alpha/dags'
 default_args = {
@@ -209,7 +210,7 @@ def train_lstm(**kwargs):
     
         mlflow.set_experiment("LSTM_baseline")
         with mlflow.start_run():
-            mlflow.log_params({"model_type": "LSTM", "layer1": 50, "Dropout":0.2, "layer2": 50, 
+            mlflow.log_params({"model_type": "LSTM", "sliding_window":60, "layer1": 50, "Dropout":0.2, "layer2": 50, 
                                "dense":25, "optimizer":"adam", "loss":"mse" })
             # Log the model
             signature = infer_signature(X_train_scaled, model.predict(X_train_scaled))
