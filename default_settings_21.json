@@ -1,0 +1,15 @@
+{
+    "data": {
+        "primaryColor": "#d8d406",
+        "accentColor": "#f2652c",
+        "lightBgColor": "#f8f9fa",
+        "textColor": "#f2652c",
+        "resume_url": "resume-data.json",
+        "download_resume": "resume.pdf",
+        "rename_rename": "Abhilash_Poshanagari.pdf",
+        "settings": true,
+        "hasBackgroundImage": true,
+        "toolbarBackgroundImage": "https://drive.google.com/file/d/1s2m5a25TPModXUHg8VWJBY9ijZh9r5ds/view?usp=sharing",
+        "download_status": true
+    }
+}
