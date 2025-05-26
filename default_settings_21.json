@@ -16,13 +16,13 @@
         "toolbarBackgroundImage": "",
         "download_status": true,
         "leftSectionBlocks": [
+            { "type": "aboutme", "position": 1, "data": [], "layout": "aboutme", "title": "About Me" },
             { "type": "experience", "position": 2, "data": [], "layout": "experience", "title": "Experience" },
-            { "type": "projects", "position": 1, "data": [], "layout": "projects", "title": "Projects" }
+            { "type": "projects", "position": 3, "data": [], "layout": "projects", "title": "Projects" }
         ],
         "rightSectionBlocks": [
-            { "type": "aboutme", "position": 1, "data": [], "layout": "aboutme", "title": "About Me" },
-            { "type": "skills", "position": 2, "data": [], "layout": "skills", "title": "Skills" },
-            { "type": "certifications", "position": 5, "data": [], "layout": "certifications", "title": "Certifications" },
+            { "type": "skills", "position": 1, "data": [], "layout": "skills", "title": "Skills" },
+            { "type": "certifications", "position": 2, "data": [], "layout": "certifications", "title": "Certifications" },
             { "type": "portfolio", "position": 3, "data": [], "layout": "portfolio", "title": "AI & ML Portfolio"  },
             { "type": "education", "position": 4, "data": [], "layout": "education", "title": "Education" }
         ]
