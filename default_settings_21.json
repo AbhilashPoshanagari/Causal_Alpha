@@ -4,12 +4,27 @@
         "accentColor": "#f2652c",
         "lightBgColor": "#f8f9fa",
         "textColor": "#ffffff",
+        "titleColor": "#6868df",
+        "iconColor": "#d8d406",
+        "subTitleColor": "#2a50ea",
         "resume_url": "resume-data.json",
         "download_resume": "resume.pdf",
         "rename_rename": "Abhilash_Poshanagari.pdf",
+        "customSettingURL": "",
         "settings": true,
         "hasBackgroundImage": false,
-        "toolbarBackgroundImage": "https://drive.google.com/file/d/1s2m5a25TPModXUHg8VWJBY9ijZh9r5ds/view?usp=sharing",
-        "download_status": true
+        "toolbarBackgroundImage": "",
+        "download_status": true,
+        "leftSectionBlocks": [
+            { "type": "experience", "position": 2, "data": [], "layout": "experience", "title": "Experience" },
+            { "type": "projects", "position": 1, "data": [], "layout": "projects", "title": "Projects" }
+        ],
+        "rightSectionBlocks": [
+            { "type": "aboutme", "position": 1, "data": [], "layout": "aboutme", "title": "About Me" },
+            { "type": "skills", "position": 2, "data": [], "layout": "skills", "title": "Skills" },
+            { "type": "certifications", "position": 5, "data": [], "layout": "certifications", "title": "Certifications" },
+            { "type": "portfolio", "position": 3, "data": [], "layout": "portfolio", "title": "AI & ML Portfolio"  },
+            { "type": "education", "position": 4, "data": [], "layout": "education", "title": "Education" }
+        ]
     }
 }
