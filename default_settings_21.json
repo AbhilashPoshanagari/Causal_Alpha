@@ -24,7 +24,9 @@
             { "type": "skills", "position": 1, "data": [], "layout": "skills", "title": "Skills" },
             { "type": "certifications", "position": 2, "data": [], "layout": "certifications", "title": "Certifications" },
             { "type": "portfolio", "position": 3, "data": [], "layout": "portfolio", "title": "AI & ML Portfolio"  },
-            { "type": "education", "position": 4, "data": [], "layout": "education", "title": "Education" }
+            { "type": "portfolio", "position": 4, "data": [], "layout": "portfolio", "title": "Github projects"},
+            { "type": "education", "position": 5, "data": [], "layout": "education", "title": "Education" }
         ]
     }
 }
+
