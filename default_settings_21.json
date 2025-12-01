@@ -8,7 +8,7 @@
         "iconColor": "#d8d406",
         "subTitleColor": "#2a50ea",
         "resume_url": "resume-data.json",
-        "download_resume": "resume.pdf",
+        "download_resume": "abhi_Resume_modified.pdf",
         "rename_rename": "Abhilash_Poshanagari.pdf",
         "customSettingURL": "",
         "settings": false,
@@ -29,6 +29,7 @@
         ]
     }
 }
+
 
 
 
